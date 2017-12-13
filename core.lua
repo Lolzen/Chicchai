@@ -87,6 +87,7 @@ local function Update(chatframe, elapsed)
 		chatframe = GENERAL_CHAT_DOCK.primary
 	end
 	if ns.cfg.MaximizeOnEnter == true then
+		if not ns.cfg.ChatFrameConfig[chatframe:GetName()] then return end
 		if MouseIsOver(chatframe) and not chatframe.wasOver then
 			chatframe.wasOver = true
 			Animate(chatframe, UP, ns.cfg.WaitAfterEnter)
