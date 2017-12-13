@@ -1,3 +1,6 @@
+3.4.2.2
+* fix error on chatevent when chatframe is not in config
+
 3.4.2.1
 * fix minimizing/maximizing ALL windows on mouseover
 
