@@ -1,3 +1,6 @@
+3.4.2.1
+* fix minimizing/maximizing ALL windows on mouseover
+
 3.4.2
 * config is now an own file, instead of being part of core.lua
   this allows for copying/backing up your config between updates
