@@ -1,3 +1,9 @@
+3.4.2
+* config is now an own file, instead of being part of core.lua
+  this allows for copying/backing up your config between updates
+* swept through code and used chatframes directly instead of frames tucked on the chatframes
+* fixed a bug where config setting would be ignored for certain chat events (eg. only ChatFrame1 for "say" is set, but ChatFrame3 and ChatFrame4 would have been triggered)
+
 3.4.1
 * fixed "frozen" chat window on login
 
