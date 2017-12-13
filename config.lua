@@ -6,7 +6,7 @@ ns.cfg = {
 	["maxHeight"] = 120,			-- How high the chat frames are when maximized
 	["animTime"] = 0.3,				-- How lang the animation takes (in seconds)
 	["minimizeTime"] = 10,			-- Minimize after X seconds
-	["minimizedLines"] = 1,			-- Number of chat messages to show in minimized state
+	["minimizedLines"] = 3,			-- Number of chat messages to show in minimized state
 
 	["MaximizeOnEnter"]	= true,		-- Maximize when entering chat frame, minimize when leaving
 	["WaitAfterEnter"] = 0,			-- Wait X seconds after entering before maximizing
@@ -38,7 +38,7 @@ ns.cfg.ChatFrameConfig = {	-- Events which maximize the chat for the different w
 		"bn_conversation",
 		"bn_broadcast",
 	},
-	["ChatFrame3"] = true, -- "true" just makes this frame available for minimizing and registers it with Chicchai
+	["ChatFrame3"] = {"whisper", "bn_whisper",}
 }
 
 --[[
