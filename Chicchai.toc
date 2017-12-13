@@ -1,7 +1,8 @@
-## Interface: 30300
+## Interface: 73000
 ## Title: Chicchai
 ## Author: Lolzen
-## Version: 3.3.2
+## Version: 3.4.1
 ## Notes: Minimizes the Chat after a short amount of time.
 
+config.lua
 core.lua

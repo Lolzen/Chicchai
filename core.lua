@@ -1,6 +1,8 @@
 --[[			Chicchai
 ]]--	by Lolzen & Cargor (EU-Nozdormu)
 
+local _, ns = ...
+
 -- Configuration
 local maxHeight = 120				-- How high the chat frames are when maximized
 local animTime = 0.3				-- How lang the animation takes (in seconds)
@@ -74,6 +76,15 @@ local UP, DOWN = 1, -1
 local function getMinHeight(self)
 	local minHeight = 0
 	for i=1, minimizedLines do
+		minHeight = minHeight + math.floor(select(2, self:GetFont())+0.5) + (self:GetSpacing()*0.9)
+	end
+	return minHeight
+end
+		
+--[[
+local function getMinHeight(self)
+	local minHeight = 0
+	for i=1, minimizedLines do
 		local line = select(9+i, self:GetRegions())
 		if(line) then
 			minHeight = minHeight + line:GetHeight() + 2.5
@@ -84,6 +95,7 @@ local function getMinHeight(self)
 	end
 	return minHeight
 end
+]]
 
 local function Update(self, elapsed)
 	if(self.WaitTime) then
@@ -100,8 +112,8 @@ local function Update(self, elapsed)
 
 	local heightPercent = self.Animate == DOWN and 1-animPercent or animPercent
 
-	local minHeight = getMinHeight(self.Frame)
-	self.Frame:SetHeight(minHeight + (maxHeight-minHeight) * heightPercent)
+	local minHeight = getMinHeight(ns.chicchai.Frame)
+	ns.chicchai.Frame:SetHeight(minHeight + (maxHeight-minHeight) * heightPercent)
 
 	if(animPercent >= 1) then
 		self.State = self.Animate
@@ -113,8 +125,8 @@ local function Update(self, elapsed)
 end
 
 local function getChicchai(self)
-	if(self:GetObjectType() == "Frame") then self = self.Frame  end
-	if(self.isDocked) then self = GENERAL_CHAT_DOCK.DOCKED_CHAT_FRAMES[1] end
+	if(self:GetObjectType() == "Frame") then self = ns.chicchai.Frame  end
+	if(ns.chicchai.isDocked) then self = GENERAL_CHAT_DOCK.DOCKED_CHAT_FRAMES[1] end
 	return self.Chicchai
 end
 
@@ -149,10 +161,10 @@ local CheckEnterLeave
 if(MaximizeOnEnter) then
 	CheckEnterLeave = function(self)
 		self = getChicchai(self)
-		if(MouseIsOver(self.Frame) and not self.wasOver) then
+		if(MouseIsOver(ns.chicchai.Frame) and not self.wasOver) then
 			self.wasOver = true
 			Animate(self, UP, WaitAfterEnter)
-		elseif(self.wasOver and not MouseIsOver(self.Frame)) then
+		elseif(self.wasOver and not MouseIsOver(ns.chicchai.Frame)) then
 			self.wasOver = nil
 			Animate(self, DOWN, WaitAfterLeave)
 		end
@@ -177,8 +189,8 @@ end
 local function updateHeight(self)
 	local self = getChicchai(self)
 	if(self.State ~= DOWN) then return end
-	self.Frame:ScrollToBottom()
-	self.Frame:SetHeight(getMinHeight(self.Frame))
+	ns.chicchai.Frame:ScrollToBottom()
+	ns.chicchai.Frame:SetHeight(getMinHeight(ns.chicchai.Frame))
 end
 
 local function chatEvent(self)
@@ -191,38 +203,43 @@ end
 
 for chatname, options in pairs(ChatFrameConfig) do
 	local chatframe = _G[chatname]
-	local chicchai = CreateFrame"Frame"
+	ns.chicchai = CreateFrame("Frame")
+	ns.chicchai:RegisterEvent("ADDON_LOADED")
 	if(MaximizeOnEnter) then
 		local updater = CreateFrame("Frame", nil, chatframe)
 		updater:SetScript("OnUpdate", CheckEnterLeave)
 		updater.Frame = chatframe
 	end
-	chicchai.Frame = chatframe
-	chatframe.Chicchai = chicchai
+	ns.chicchai.Frame = chatframe
+	chatframe.Chicchai = ns.chicchai
 	if(type(options) == "table") then
 		for _, event in pairs(options) do
 			if(not event:match("[A-Z]")) then
 				event = "CHAT_MSG_"..event:upper()
 			end
-			chicchai:RegisterEvent(event)
+			ns.chicchai:RegisterEvent(event)
 		end
 	end
-	ChatFrameConfig[chatname] = chicchai
+	ChatFrameConfig[chatname] = ns.chicchai
 	
 	chatframe.Maximize = Maximize
 	chatframe.Minimize = Minimize
 	chatframe.UpdateHeight = updateHeight
 	chatframe.SetFrozen = SetFrozen
 
-	chicchai:SetScript("OnUpdate", Update)
-	chicchai:SetScript("OnEvent", chatEvent)
-	chicchai:Hide()
+	ns.chicchai:SetScript("OnUpdate", Update)
+	ns.chicchai:SetScript("OnEvent", chatEvent)
+	ns.chicchai:Hide()
 
-	if(getChicchai(chatframe) == chicchai) then
-		updateHeight(chatframe)
-	end
+	updateHeight(chatframe)
 
 	hooksecurefunc(chatframe, "AddMessage", updateHeight)
 end
 
 _G.Chicchai = ChatFrameConfig
+
+function ns.chicchai:ADDON_LOADED(event, addon)
+	if addon == "Chicchai" then
+		Minimize()
+	end
+end
