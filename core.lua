@@ -50,12 +50,6 @@ if ns.cfg.MaximizeCombatLog == true then
 	end)
 end
 
-local function updateHeight(chatframe)
-	if chatframe.State ~= DOWN then return end
-	chatframe:ScrollToBottom()
-	chatframe:SetHeight(getMinHeight(chatframe))
-end
-
 local function chatEvent(chatframe, ...)
 	local chatevent, message, _, _, _, _, _, number = ...
 	if event == "CHAT_MSG_CHANNEL" and ns.cfg.channelNumbers and not ns.cfg.channelNumbers[number] then return end
@@ -139,5 +133,9 @@ for chatname, options in pairs(ns.cfg.ChatFrameConfig) do
 	chatframe:SetScript("OnUpdate", Update)
 	chatframe:HookScript("OnEvent", chatEvent)
 
-	updateHeight(chatframe)
+	if chatframe.isDocked then
+		Animate(GENERAL_CHAT_DOCK.primary, DOWN)
+	else
+		Animate(chatframe, DOWN)
+	end
 end
