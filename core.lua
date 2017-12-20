@@ -45,6 +45,9 @@ if ns.cfg.MaximizeCombatLog == true then
 		elseif chatframe.Frozen and chatframe.isDocked then
 			chatframe.Frozen = false
 			Animate(chatframe, DOWN)
+		elseif GENERAL_CHAT_DOCK.primary.Frozen and not chatframe.isDocked then
+			GENERAL_CHAT_DOCK.primary.Frozen = false
+			Animate(GENERAL_CHAT_DOCK.primary, DOWN)
 		end
 	end)
 	
@@ -61,6 +64,9 @@ if ns.cfg.MaximizeCombatLog == true then
 		elseif chatframe.Frozen and chatframe.isDocked then
 			chatframe.Frozen = false
 			Animate(chatframe, DOWN)
+		elseif GENERAL_CHAT_DOCK.primary.Frozen and not chatframe.isDocked then
+			GENERAL_CHAT_DOCK.primary.Frozen = false
+			Animate(GENERAL_CHAT_DOCK.primary, DOWN)
 		end
 	end)
 end
