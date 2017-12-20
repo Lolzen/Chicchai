@@ -33,6 +33,21 @@ end
 
 if ns.cfg.MaximizeCombatLog == true then
 	ns.cfg.ChatFrameConfig["ChatFrame2"] = true
+	hooksecurefunc("FCF_StopDragging", function(chatframe)
+		if chatframe ~= _G["ChatFrame2"] then return end
+		if chatframe.isDocked then
+			chatframe = GENERAL_CHAT_DOCK.primary
+		end
+
+		if not chatframe.Frozen then
+			Animate(chatframe, UP)
+			chatframe.Frozen = true
+		elseif chatframe.Frozen and chatframe.isDocked then
+			chatframe.Frozen = false
+			Animate(chatframe, DOWN)
+		end
+	end)
+	
 	hooksecurefunc("FCF_Tab_OnClick", function(tab)
 		local chatframe = _G["ChatFrame2"]
 		if chatframe.isDocked then
@@ -40,10 +55,10 @@ if ns.cfg.MaximizeCombatLog == true then
 		end
 		if not chatframe then return end
 
-		if tab:GetName() == "ChatFrame2Tab"then
+		if tab:GetName() == "ChatFrame2Tab" then
 			Animate(chatframe, UP)
 			chatframe.Frozen = true
-		elseif chatframe.Frozen then
+		elseif chatframe.Frozen and chatframe.isDocked then
 			chatframe.Frozen = false
 			Animate(chatframe, DOWN)
 		end
