@@ -33,6 +33,9 @@ end
 
 if ns.cfg.MaximizeCombatLog == true then
 	ns.cfg.ChatFrameConfig["ChatFrame2"] = true
+	Animate(_G["ChatFrame2"], UP)
+	_G["ChatFrame2"].Frozen = true
+
 	hooksecurefunc("FCF_StopDragging", function(chatframe)
 		if chatframe ~= _G["ChatFrame2"] then return end
 		if chatframe.isDocked then
