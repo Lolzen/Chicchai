@@ -75,12 +75,11 @@ if ns.cfg.MaximizeCombatLog == true then
 end
 
 local function chatEvent(chatframe, ...)
-	local chatevent, message, _, _, _, _, _, number = ...
-	if event == "CHAT_MSG_CHANNEL" and ns.cfg.channelNumbers and not ns.cfg.channelNumbers[number] then return end
+	local chatevent, _, _, _, _, _, _, number = ...
+	if chatevent == "CHAT_MSG_CHANNEL" and ns.cfg.channelNumbers and not ns.cfg.channelNumbers[number] then return end
+	local checkevent = string.gsub(chatevent, "CHAT_MSG_", "")
+
 	if chatframe.isDocked then
-		if not ns.cfg.ChatFrameConfig[FCFDock_GetSelectedWindow(GENERAL_CHAT_DOCK):GetName()] then return end
-		if type(ns.cfg.ChatFrameConfig[FCFDock_GetSelectedWindow(GENERAL_CHAT_DOCK):GetName()]) == "boolean" then return end
-		local checkevent = string.gsub(chatevent, "CHAT_MSG_", "")
 		for _, event in pairs(ns.cfg.ChatFrameConfig[FCFDock_GetSelectedWindow(GENERAL_CHAT_DOCK):GetName()]) do
 			if string.match(event, string.lower(checkevent)) then
 				if(ns.cfg.LockInCombat == false or not UnitAffectingCombat("player")) then
@@ -89,9 +88,6 @@ local function chatEvent(chatframe, ...)
 			end
 		end
 	else
-		if not ns.cfg.ChatFrameConfig[chatframe:GetName()] then return end
-		if type(ns.cfg.ChatFrameConfig[chatframe:GetName()]) == "boolean" then return end
-		local checkevent = string.gsub(chatevent, "CHAT_MSG_", "")
 		for _, event in pairs(ns.cfg.ChatFrameConfig[chatframe:GetName()]) do
 			if string.match(event, string.lower(checkevent)) then
 				if(ns.cfg.LockInCombat == false or not UnitAffectingCombat("player")) then
