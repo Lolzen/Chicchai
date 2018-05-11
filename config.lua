@@ -28,39 +28,21 @@ ns.cfg.channelNumbers = {
 ns.cfg.ChatFrameConfig = {	-- Events which maximize the chat for the different windows
 	["ChatFrame1"] = {
 		"say", "emote", "text_emote",
-		"party", "party_leader", "party_guide",
+		"party", "party_leader",
 		"whisper",
 		"guild", "officer",
-		"battleground", "battleground_leader",
 		"raid", "raid_leader", "raid_warning",
-	
 		"bn_whisper",
-		"bn_conversation",
-		"bn_broadcast",
 	},
 	["ChatFrame3"] = true, -- "true" just makes this frame available for minimizing and registers it with Chicchai
 }
 
---[[
-	REFERENCE LIST
-	These are the available chat events for ChatFrameConfig
-		say, yell, emote, text_emote,
-		party, party_leader, party_guide,
-		whisper, whisper_inform, afk, dnd, ignored,
-		guild, officer,
-		channel, channel_join, channel_leave, channel_list, channel_notice, channel_notice_user,
-		battleground, battleground_leader,
-		raid, raid_leader, raid_warning,
-
-		bn_whisper, bn_whisper_inform,
-		bn_conversation, bn_conversation_notice, bn_conversation_list,
-		bn_alert,
-		bn_broadcast, bn_broadcast_inform,
-		bn_inline_toast_alert, bn_inline_toast_broadcast, bn_inline_toast_broadcast_inform, bn_inline_toast_conversation,
-
-		system, achievement, guild_achievement,
-		bg_system_neutral, bg_system_alliance, bg_system_horde,
-		monster_say, monster_party, monster_yell, monster_whisper, monster_emote,
-		raid_boss_whisper, raid_boss_emote,
-		skill, loot, money, opening, tradeskills, pet_info, combat_misc_info, combat_xp_gain, combat_honor_gain, combat_faction_change,
+--[[	REFERENCE EVENT LIST
+		An up to date list with the available events is everything starting with "CHAT_MSG" in this link:
+		https://wow.gamepedia.com/Category:API_events/Communication
+		
+		EXAMPLE:
+		We are registering ChatFrame1 in ns.cfg.ChatFrameConfig with CHAT_MSG_SAY by using "say".
+		If we want to include a guild achivement event we then write "guild_achievement" as we see 
+		"CHAT_MSG_GUILD_ACHIEVEMENT" in the link.
 ]]
