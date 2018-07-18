@@ -1,3 +1,6 @@
+3.4.4
+* config: cleanup events removed from game and update reference list per link
+
 3.4.3
 * refix frozen chat window on login by direct calls of Animate() instead of unpdateHeight()
 * respect MaximizeCombatLog on floating combatlog and handle docking/dedocking it
