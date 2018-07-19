@@ -78,17 +78,14 @@ local function chatEvent(chatframe, ...)
 	local chatevent, _, _, _, _, _, _, number = ...
 	if chatevent == "CHAT_MSG_CHANNEL" and ns.cfg.channelNumbers and not ns.cfg.channelNumbers[number] then return end
 	local checkevent = string.gsub(chatevent, "CHAT_MSG_", "")
-
+	local chatcfg
 	if chatframe.isDocked then
-		for _, event in pairs(ns.cfg.ChatFrameConfig[FCFDock_GetSelectedWindow(GENERAL_CHAT_DOCK):GetName()]) do
-			if string.match(event, string.lower(checkevent)) then
-				if(ns.cfg.LockInCombat == false or not UnitAffectingCombat("player")) then
-					Animate(chatframe, UP, nil, MinimizeAfterWait)
-				end
-			end
-		end
+		chatcfg = FCFDock_GetSelectedWindow(GENERAL_CHAT_DOCK):GetName()
 	else
-		for _, event in pairs(ns.cfg.ChatFrameConfig[chatframe:GetName()]) do
+		chatcfg = chatframe:GetName()
+	end
+	if ns.cfg.ChatFrameConfig[chatcfg] ~= true then
+		for _, event in pairs(ns.cfg.ChatFrameConfig[chatcfg]) do
 			if string.match(event, string.lower(checkevent)) then
 				if(ns.cfg.LockInCombat == false or not UnitAffectingCombat("player")) then
 					Animate(chatframe, UP, nil, MinimizeAfterWait)
