@@ -1,3 +1,6 @@
+3.4.5
+* fixup boolean error
+
 3.4.4
 * config: cleanup events removed from game and update reference list per link
 
