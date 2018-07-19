@@ -1,4 +1,4 @@
-## Interface: 73000
+## Interface: 80000
 ## Title: Chicchai
 ## Author: Lolzen
 ## Version: 3.4.5
