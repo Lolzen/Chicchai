@@ -88,6 +88,7 @@ local function chatEvent(chatframe, ...)
 		for _, event in pairs(ns.cfg.ChatFrameConfig[chatcfg]) do
 			if string.match(event, string.lower(checkevent)) then
 				if(ns.cfg.LockInCombat == false or not UnitAffectingCombat("player")) then
+					if chatframe.wasOver == true then return end
 					Animate(chatframe, UP, nil, MinimizeAfterWait)
 				end
 			end
