@@ -33,6 +33,7 @@ ns.cfg.ChatFrameConfig = {	-- Events which maximize the chat for the different w
 		"guild", "officer",
 		"raid", "raid_leader", "raid_warning",
 		"bn_whisper",
+		"communities_channel",
 	},
 	["ChatFrame3"] = true, -- "true" just makes this frame available for minimizing and registers it with Chicchai
 }
