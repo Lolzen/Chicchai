@@ -84,7 +84,7 @@ local function chatEvent(chatframe, ...)
 	else
 		chatcfg = chatframe:GetName()
 	end
-	if ns.cfg.ChatFrameConfig[chatcfg] ~= true then
+	if ns.cfg.ChatFrameConfig[chatcfg] and ns.cfg.ChatFrameConfig[chatcfg] ~= true then
 		for _, event in pairs(ns.cfg.ChatFrameConfig[chatcfg]) do
 			if string.match(event, string.lower(checkevent)) then
 				if(ns.cfg.LockInCombat == false or not UnitAffectingCombat("player")) then
