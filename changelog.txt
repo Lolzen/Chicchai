@@ -1,3 +1,21 @@
+3.5.0
+* update to 12.1.0 (Midnight), interface version 120100
+* minimizedLines now uses the real height of the last X messages (including messages spanning
+  multiple lines) instead of the font height, and follows new messages, scrolling and tab switches
+* CPU: one shared animation driver which only runs while animating, mouseover is polled 10x per
+  second instead of every frame per chat frame, chat events are handled by a lookup table
+* no longer replace the chat frames' own OnUpdate script (fixes the "scroll to bottom" button flashing)
+* no longer register chat events on the chat frames themselves (messages ended up in tabs where
+  they were disabled in the chat settings)
+* no longer store state on Blizzard's chat frames (taint)
+* fix chat collapsing and expanding again on every new message while already maximized
+* fix partial matches of event names (eg. "whisper" triggered frames configured for "bn_whisper")
+* fix animation running at double speed with several docked frames in the config
+* animations reverse smoothly from the current height instead of jumping
+* secret chat values (Midnight restrictions) no longer cause errors
+* pause while Edit Mode is open and re-apply heights after loading screens / Edit Mode layout changes
+* unknown chat frames and events in the config are reported instead of causing errors
+
 3.4.5
 * fixup boolean error
 
