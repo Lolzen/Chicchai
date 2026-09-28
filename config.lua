@@ -4,9 +4,9 @@ local _, ns = ...
 
 ns.cfg = {
 	["maxHeight"] = 120,			-- How high the chat frames are when maximized
-	["animTime"] = 0.3,				-- How lang the animation takes (in seconds)
+	["animTime"] = 0.3,				-- How long the animation takes (in seconds)
 	["minimizeTime"] = 10,			-- Minimize after X seconds
-	["minimizedLines"] = 1,			-- Number of chat messages to show in minimized state
+	["minimizedLines"] = 1,			-- Number of chat messages to show in minimized state (a message can span several lines)
 
 	["MaximizeOnEnter"]	= true,		-- Maximize when entering chat frame, minimize when leaving
 	["WaitAfterEnter"] = 0,			-- Wait X seconds after entering before maximizing
@@ -16,9 +16,9 @@ ns.cfg = {
 	["MaximizeCombatLog"] = true,	-- When the combat log is selected, it will be maximized
 }
 
--- Modify this to maximize only on special channels
+-- Modify this to maximize only on special channels (the channel numbers, eg. /1 General)
 -- comment/remove it to react on all channels
--- you still need the "channel"-event on your chat frame!
+-- you still need the "channel"-event in ChatFrameConfig below!
 ns.cfg.channelNumbers = {
 	[1] = true,
 	[2] = true,
@@ -40,7 +40,8 @@ ns.cfg.ChatFrameConfig = {	-- Events which maximize the chat for the different w
 
 --[[	REFERENCE EVENT LIST
 		An up to date list with the available events is everything starting with "CHAT_MSG" in this link:
-		https://wow.gamepedia.com/Category:API_events/Communication
+		https://warcraft.wiki.gg/wiki/Events#Chat_Info
+		Unknown events are ignored and reported in the chat on login.
 		
 		EXAMPLE:
 		We are registering ChatFrame1 in ns.cfg.ChatFrameConfig with CHAT_MSG_SAY by using "say".
